@@ -12,8 +12,20 @@ module.exports = {
         'poppins-medium': ['Poppins-medium'],
         'poppins-semiBold': ['Poppins-semiBold'],
         'poppins-bold': ['Poppins-bold'],
+      },
+      dropShadow: {
+        'myshop-shadow': '0 0 5px rgba(0, 0, 0, 0.15)'
       }
     },
   },
-  plugins: [],
+  plugins: [
+    function({ addUtilities }) {
+      const newUtilities = {
+        '.parent >*': {
+          '@apply flex-1 basis-72': {}
+        }
+      }
+      addUtilities(newUtilities, ['responsive', 'hover'])
+    }
+  ],
 }

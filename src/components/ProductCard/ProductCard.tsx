@@ -1,21 +1,36 @@
 import { FiShoppingCart } from 'react-icons/fi'
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
+import { Product } from '../../data/products'
+
+interface ProductCardProps {
+  product: Product
+}
 
 
-export const ProductCard: React.FC = () => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <div className='bg-white w-full p-4 my-0 mx-auto'>
+    <div className='bg-white w-full p-8 my-0 mx-auto rounded-md flex flex-col items-center drop-shadow-myshop-shadow'>
       <img 
-        src="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg" 
-        alt=""
-        className='w-[90%] '
+        src={product.image}
+        alt={product.description}
+        className='w-[250px] h-[400px] object-contain'
        />
-      <h2 className='text-xl/none'>Mens Casual Premium Slim Fit T-Shirts</h2>
-      <div className='flex items-center justify-between'>
-        <span>4.1</span>
-        <strong>$4,22</strong>
+      <h2 className='text-base/none mt-4'>{product.title}</h2>
+      <div className='flex items-center justify-between w-full mt-4'>
+        <span className='flex justify-center items-center text-xs/none text-zinc-400' >
+          { Array.from({ length: 5 }).map((_, index) => 
+            index < Math.round(product.rating.rate) ? ( 
+              <AiFillStar key={index} className='text-sm text-black'/> 
+            ) : (
+               <AiOutlineStar key={index} className='text-sm text-black'/> 
+              ) 
+            )}
+          ({product.rating.rate})
+        </span>
+        <strong>${product.price}</strong>
       </div>
-      <div className='flex justify-center'>
-        <button className="border-none rounded-md h-8 py-0 px-4 bg-blue-600 text-white flex items-center gap-2">
+      <div className='flex justify-center mt-4 w-full'>
+        <button className="border-none rounded-md h-10 bg-blue-600 text-white flex items-center gap-2 w-full justify-center">
           Adicionar ao Carrinho
           <FiShoppingCart />
         </button>
